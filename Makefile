@@ -13,7 +13,7 @@ shutdown:
 shutdown_volumes:
 	docker-compose down -v
 
-startup: shutdown
+start: shutdown
 	docker compose --profile db up
 
 
