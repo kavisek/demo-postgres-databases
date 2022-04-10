@@ -1,0 +1,32 @@
+version: "3.8"
+
+services: 
+
+  db:
+    build:
+        context: ./containers/postgres
+        dockerfile: Dockerfile
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c max_connections=400
+    restart: always
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_SCHEMA: demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+    ports:
+      - 5432:5432
+    networks:
+      - network
+    volumes:
+      - db:/var/lib/mysql
+    profiles:
+      - db
+
+volumes:
+  db:
+    driver: local
+  
+# A local docker network.
+networks:
+  network:
+    driver: bridge
