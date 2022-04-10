@@ -16,5 +16,6 @@ shutdown_volumes:
 start: shutdown
 	docker compose --profile db up
 
-
+exec:
+	docker exec -it demo-postgres /bin/bash
 	

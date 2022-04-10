@@ -11,7 +11,7 @@ function create_user_and_database() {
 EOSQL
 }
 
-
+# Create databases and users.
 if [ -n "$POSTGRES_MULTIPLE_DATABASES" ]; then
 	echo "Multiple database creation requested: $POSTGRES_MULTIPLE_DATABASES"
 	for db in $(echo $POSTGRES_MULTIPLE_DATABASES | tr ',' ' '); do
@@ -19,3 +19,7 @@ if [ -n "$POSTGRES_MULTIPLE_DATABASES" ]; then
 	done
 	echo "Multiple databases created"
 fi
+
+# Loading Data
+# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -d adventureworks < /databases/adventure_work.sql
+psql -v --username "$POSTGRES_USER" -d adventureworks < /databases/adventure_work.sql

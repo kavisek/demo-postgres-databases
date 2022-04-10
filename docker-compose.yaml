@@ -3,13 +3,14 @@ version: "3.8"
 services: 
 
   db:
+    container_name: demo-postgres
     build:
         context: ./containers/postgres
         dockerfile: Dockerfile
     command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c max_connections=400
     restart: always
     environment:
-      POSTGRES_MULTIPLE_DATABASES: db1,db2
+      POSTGRES_MULTIPLE_DATABASES: adventureworks
       POSTGRES_DB: demo
       POSTGRES_SCHEMA: demo
       POSTGRES_USER: postgres
