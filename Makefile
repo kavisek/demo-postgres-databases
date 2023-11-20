@@ -19,3 +19,5 @@ start: shutdown
 exec:
 	docker exec -it demo-postgres /bin/bash
 	
+backup:
+	docker exec -t postgres pg_dumpall -c -U postgres > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
