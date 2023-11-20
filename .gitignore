@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 *.sql
-!migrations/*.sql
+!database/migrations/*.sql
 !queries/*.sql
