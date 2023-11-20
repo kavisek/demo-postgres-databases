@@ -11,6 +11,8 @@ Demoing functionality of Postgres and pgAdmin in a local postgres database..
     - The ./database/initdb/create_schema.sh create a 'demo' schema and second 'admin' user. The second user is not a superuser.
     - flyway is used to create the tables and insert data into the tables.
     - pg_stat_statements.track=all: track all statements executed by all users.
+- The Makefile includes the following
+    - Use cases for pg_dumpall and psql
 
 ### Setup
 
