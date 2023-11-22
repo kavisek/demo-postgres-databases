@@ -13,6 +13,9 @@ Demoing functionality of Postgres and pgAdmin in a local postgres database..
     - pg_stat_statements.track=all: track all statements executed by all users.
 - The Makefile includes the following
     - Use cases for pg_dumpall and psql
+- After starting the docker compose you can connect to the database using pgadmin4 at http://localhost:5050
+    - username: pgadmin4@pgadmin.org
+    - password: admin
 
 ### Setup
 
@@ -31,6 +34,7 @@ password: postgres
 
 ![DataGrip](./images/datagrip.png)
 
+This examples uses DataGrip to connect to the database. You can also use pgAdmin4 to connect to the database. 
 
 ## Monitoring 
 

@@ -1,4 +1,4 @@
-# DBT Postgres docker compose file.
+# Postgres docker compose file.
 version: "3.8"
 services:
 
@@ -24,6 +24,14 @@ services:
       - ./database/conf:/flyway/conf
     networks:
       - network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'  
+          memory: 256M  
+        reservations:
+          cpus: '0.10'  
+          memory: 128M 
 
   postgres:
     container_name: postgres
@@ -55,11 +63,11 @@ services:
         condition: on-failure
       resources:
         limits:
-          cpus: '0.50'
-          memory: 512M
+          cpus: '4'
+          memory: 2048M
         reservations:
-          cpus: '0.25'
-          memory: 256M
+          cpus: '2'
+          memory: 1024M
 
   pgadmin:
     container_name: pgadmin
@@ -71,6 +79,14 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '2'  
+          memory: 256M  
+        reservations:
+          cpus: '1'  
+          memory: 128M 
 
 networks:
   network:
