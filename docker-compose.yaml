@@ -9,7 +9,7 @@ services:
       context: ./database
       dockerfile: Dockerfile.flyway
     entrypoint: flyway
-    command: migrate
+    command: -X migrate
     depends_on:
       - postgres
     environment:
