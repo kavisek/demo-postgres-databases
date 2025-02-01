@@ -130,4 +130,4 @@ dmypy.json
 
 *.sql
 !database/migrations/*.sql
-!queries/*.sql
+!database/queries/*.sql
