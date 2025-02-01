@@ -1,12 +1,12 @@
 -- Clear existing data (in correct order due to foreign key constraints)
-TRUNCATE TABLE demo.grades CASCADE;
-TRUNCATE TABLE demo.classes_students CASCADE;
-TRUNCATE TABLE demo.students CASCADE;
-TRUNCATE TABLE demo.classes CASCADE;
-TRUNCATE TABLE demo.teachers CASCADE;
+TRUNCATE TABLE public.grades CASCADE;
+TRUNCATE TABLE public.classes_students CASCADE;
+TRUNCATE TABLE public.students CASCADE;
+TRUNCATE TABLE public.classes CASCADE;
+TRUNCATE TABLE public.teachers CASCADE;
 
 -- Insert Teachers
-INSERT INTO demo.teachers (first_name, last_name, email) VALUES
+INSERT INTO public.teachers (first_name, last_name, email) VALUES
     ('John', 'Smith', 'john.smith@school.edu'),
     ('Maria', 'Garcia', 'maria.garcia@school.edu'),
     ('James', 'Johnson', 'james.johnson@school.edu'),
@@ -17,7 +17,7 @@ INSERT INTO demo.teachers (first_name, last_name, email) VALUES
     ('Jennifer', 'Wilson', 'jennifer.wilson@school.edu');
 
 -- Insert Classes (using subqueries to get the actual teacher IDs)
-INSERT INTO demo.classes (teacher_id, name, subject)
+INSERT INTO public.classes (teacher_id, name, subject)
 SELECT
     t.id,
     c.name,
@@ -33,12 +33,12 @@ FROM (
         (7, 'Computer Science', 'Technology'),
         (8, 'Biology', 'Science')
 ) AS c(teacher_num, name, subject)
-JOIN demo.teachers t ON t.id = (
-    SELECT id FROM demo.teachers ORDER BY id LIMIT 1 OFFSET (c.teacher_num - 1)
+JOIN public.teachers t ON t.id = (
+    SELECT id FROM public.teachers ORDER BY id LIMIT 1 OFFSET (c.teacher_num - 1)
 );
 
 -- Insert 100 Students
-INSERT INTO demo.students (first_name, last_name, email)
+INSERT INTO public.students (first_name, last_name, email)
 SELECT
     'Student_' || id::text,
     'LastName_' || id::text,
@@ -46,12 +46,12 @@ SELECT
 FROM generate_series(1, 100) AS id;
 
 -- Enroll students in classes (each student takes 4 classes)
-INSERT INTO demo.classes_students (class_id, student_id)
+INSERT INTO public.classes_students (class_id, student_id)
 SELECT 
     classes.id AS class_id,
     students.id AS student_id
-FROM demo.students
-CROSS JOIN demo.classes
+FROM public.students
+CROSS JOIN public.classes
 WHERE 
     -- Students with ID % 2 = 0 take Mathematics, History, Physics, and English
     (students.id % 2 = 0 AND classes.subject IN ('Mathematics', 'History', 'Science', 'English'))
@@ -61,7 +61,7 @@ WHERE
 ORDER BY students.id, classes.id;
 
 -- Insert Grades (using a deterministic pattern)
-INSERT INTO demo.grades (class_id, student_id, grade)
+INSERT INTO public.grades (class_id, student_id, grade)
 SELECT 
     class_id,
     student_id,
@@ -71,4 +71,4 @@ SELECT
         WHEN student_id % 4 = 2 THEN 75  -- Average students
         ELSE 65                          -- Below average students
     END as grade
-FROM demo.classes_students;
+FROM public.classes_students;
