@@ -8,10 +8,10 @@ watch:
 	watch -n 5 make status 
 
 shutdown:
-	docker-compose down
+	docker compose down
 
 shutdown_volumes:
-	docker-compose down -v
+	docker compose down -v
 
 start: shutdown
 	docker compose --profile db up

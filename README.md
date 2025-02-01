@@ -4,7 +4,7 @@ Demoing functionality of Postgres and pgAdmin in a local postgres database..
 
 ### Overview
 
-- Run Postgres and pgAdmin in Docker using docker-compose
+- Run Postgres and pgAdmin in Docker using docker compose
 - Image and Containers create the following
     - Set max connections to 400. 
     - install pg_stat_statements and uuid-ossp extension.
