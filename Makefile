@@ -7,10 +7,10 @@ status:
 watch:
 	watch -n 5 make status 
 
-shutdown:
+stop:
 	docker compose down
 
-shutdown_volumes:
+delete_volumes:
 	docker compose down -v
 
 start: shutdown
